@@ -3,14 +3,19 @@ import ccxt
 import logging
 import csv
 import time
+import os
+
 
 # Configuración del registro
 logging.basicConfig(filename='log.csv', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Retrieve the value of the environment variables
+api_key = os.environ.get('KRAKEN_API_KEY')
+api_secret = os.environ.get('KRAKEN_API_SECRET')
+
 # Configuración de la conexión a la API de Kraken
-api_key = ''
-api_secret = ''
 exchange = ccxt.kraken({'apiKey': api_key, 'secret': api_secret})
+
 
 # Configuración del par de trading y la estrategia RSI
 symbol = 'BTC/USDT'
