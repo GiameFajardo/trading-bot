@@ -66,16 +66,18 @@ def sell(symbol, price, amount):
 
 # Ejecución de la estrategia
 def run_strategy():
-    try:
-        current_rsi = get_current_rsi(symbol)
-        last_price = exchange.fetch_ticker(symbol)['close']
-        amount_to_trade = (capital / capital_fraction) / last_price
-        if current_rsi < oversold_level:
-            buy(symbol, last_price, amount_to_trade)
-        elif current_rsi > overbought_level:
-            sell(symbol, last_price, amount_to_trade)
-    except Exception as e:
-        logging.error(f"Ocurrió un error: {str(e)}")
+    while True:
+        try:
+            current_rsi = get_current_rsi(symbol)
+            last_price = exchange.fetch_ticker(symbol)['close']
+            amount_to_trade = (capital / capital_fraction) / last_price
+            if current_rsi < oversold_level:
+                buy(symbol, last_price, amount_to_trade)
+            elif current_rsi > overbought_level:
+                sell(symbol, last_price, amount_to_trade)
+            time.sleep(30)
+        except Exception as e:
+            logging.error(f"Ocurrió un error: {str(e)}")
 
 # Función para obtener y registrar el precio de BTC/USDT cada 30 segundos
 def log_btc_price():
