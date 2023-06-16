@@ -19,13 +19,14 @@ overbought_level = 70
 oversold_level = 30
 capital = 20  # Capital inicial en USDT
 capital_fraction = 4
+timeframe = '15m'
 
 # Abrir el archivo de registro en modo append y crear un objeto csv.writer
 log_file = open('log.csv', 'a', newline='')
 csv_writer = csv.writer(log_file)
 
 # Obtener los datos del par de trading
-def fetch_data(symbol, timeframe='1d', limit=100):
+def fetch_data(symbol, timeframe=timeframe, limit=100):
     ohlcv = exchange.fetch_ohlcv(symbol, timeframe, limit=limit)
     return ohlcv
 
