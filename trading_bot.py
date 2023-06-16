@@ -18,6 +18,7 @@ rsi_length = 14
 overbought_level = 70
 oversold_level = 30
 capital = 20  # Capital inicial en USDT
+capital_fraction = 4
 
 # Abrir el archivo de registro en modo append y crear un objeto csv.writer
 log_file = open('log.csv', 'a', newline='')
@@ -62,7 +63,7 @@ def run_strategy():
     try:
         current_rsi = get_current_rsi(symbol)
         last_price = exchange.fetch_ticker(symbol)['close']
-        amount_to_trade = capital / last_price
+        amount_to_trade = (capital / capital_fraction) / last_price
         if current_rsi < oversold_level:
             buy(symbol, last_price, amount_to_trade)
         elif current_rsi > overbought_level:
